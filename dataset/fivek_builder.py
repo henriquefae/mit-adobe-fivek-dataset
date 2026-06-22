@@ -30,6 +30,8 @@ import requests
 from tqdm.contrib.concurrent import process_map  # tqdm>=4.42.0
 from tqdm import tqdm
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 class MITAboveFiveKBuilderConfig:
     """
@@ -557,9 +559,10 @@ def download(url: str, filepath: str, retry: int = 5) -> bool:
     s.mount("https://", requests.adapters.HTTPAdapter(max_retries=retries))
 
     with s.get(
-            url,
-            stream=True,
-            timeout=(3.0, 7.5),  # (connect-timeout, read-timeout)
+        url,
+        stream=True,
+        timeout=(3.0, 7.5),  # (connect-timeout, read-timeout)
+        verify=False,
     ) as response:
         response.raise_for_status()
         with open(filepath, "wb") as f:
