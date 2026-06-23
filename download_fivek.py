@@ -10,9 +10,10 @@ DATASET_ROOT = ROOT / "MITAboveFiveK"
 
 EXPERT = "c"
 
-N_TRAIN = 30
-N_VAL = 5
-N_TEST = 3
+# Number of samples to download for each split
+N_TRAIN = 400
+N_VAL = 40
+N_TEST = 10
 
 METADATA_URLS = {
     "train": "https://huggingface.co/datasets/yuukicammy/MIT-Adobe-FiveK/raw/main/training.json",
@@ -26,7 +27,7 @@ METADATA_FILES = {
     "test": DATASET_ROOT / "testing.json",
 }
 
-MANIFEST_PATH = DATASET_ROOT / "small_30_5_3_manifest.json"
+MANIFEST_PATH = DATASET_ROOT / "data_split_manifest.json"
 
 
 def download_file(url: str, out_path: Path, timeout: int = 180):
